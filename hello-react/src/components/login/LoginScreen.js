@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import SignUpModal from '../signUp/SignUpModal'
-
+import {RenteaTitle} from './LoginConstants'
 const LoginScreen = props => {
 	const [emailAddress, setEmailAddress] = useState(
 		props.emailAddress
@@ -26,12 +26,8 @@ const LoginScreen = props => {
 		console.log(password);
 	}
 
-
 	return (
 		<Container>
-		<Row>
-		<Col/>
-		<Col>
 		 <Card
 			 style={
 				 {
@@ -41,7 +37,7 @@ const LoginScreen = props => {
 			 border={'dark'}
 		 >
 			 <Card.Header>
-			 	Rentea
+			 	RenteaTitle
 			 </Card.Header>
 			  <Card.Body>
 					<Form.Group controlId='formBasicEmail'>
@@ -82,9 +78,6 @@ const LoginScreen = props => {
 					</Button>
 				</Card.Body>
 			</Card>
-			</Col>
-		<Col/>
-		</Row>
 		{isSignUpModalOpen && (
 			<SignUpModal
 			 setIsSignUpModalOpen={setIsSignUpModalOpen}
