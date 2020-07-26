@@ -1,6 +1,5 @@
-import React,{useState} from 'react';
+import React from 'react';
 import {Button, Modal} from 'react-bootstrap';
-import PropTypes from 'prop-types';
 
 const SignUpModal = props => {
   return (
