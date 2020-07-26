@@ -27,6 +27,6 @@ export default class MainScreen extends React.Component {
        </Navbar>
        <RentailPropertyInfoScreen/>
       </Container>
-      )
+    )
   }
 }
