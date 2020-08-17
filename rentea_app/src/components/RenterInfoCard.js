@@ -1,20 +1,13 @@
-import React,{useState} from 'react';
-import {
-  Card,
-  Container,
-  Row,
-  Col
-} from 'react-bootstrap';
+import React, { useState } from "react";
+import { Card, Container, Row, Col } from "react-bootstrap";
 
-const RenterInfoCard = props => {
+const RenterInfoCard = (props) => {
   return (
-    <Card
-      border={'dark'}
-    >
-    <Card.Header>Renter</Card.Header>
-        <Card.Body></Card.Body>
+    <Card border={"dark"}>
+      <Card.Header>Renter</Card.Header>
+      <Card.Body></Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default RenterInfoCard
+export default RenterInfoCard;

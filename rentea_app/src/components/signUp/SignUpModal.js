@@ -1,12 +1,10 @@
-import React from 'react';
-import {Button, Modal} from 'react-bootstrap';
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
 
-const SignUpModal = props => {
+const SignUpModal = (props) => {
   return (
     <Modal.Dialog>
-      <Modal.Header
-        closeButton
-      >
+      <Modal.Header closeButton>
         <Modal.Title>Create an account</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -15,22 +13,14 @@ const SignUpModal = props => {
       <Modal.Footer>
         <Button
           variant="secondary"
-          onClick={
-            () => props.setIsSignUpModalOpen(false)
-          }
+          onClick={() => props.setIsSignUpModalOpen(false)}
         >
           Close
         </Button>
-        <Button
-          variant="primary"
-        >
-          Save changes
-        </Button>
+        <Button variant="primary">Save changes</Button>
       </Modal.Footer>
     </Modal.Dialog>
-  )
-}
-
-
+  );
+};
 
 export default SignUpModal;
