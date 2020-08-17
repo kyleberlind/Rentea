@@ -1,12 +1,36 @@
-import React from 'react';
+import React,{useState} from 'react';
+import {
+  Card,
+  Container,
+  Row,
+  Col
+} from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import MapContainer from '../googleMaps/MapContainer';
+import RenterInfoCard from './RenterInfoCard';
+import ApartmentInfoCard from './ApartmentInfoCard';
 
-const RentailPropertyInfoScreen = props => {
+const RentalPropertyInfoScreen = props => {
   return (
-    <Card
-      style={}
-    >
-    </Card>
+    <Container fluid>
+    <Row noGutters>
+      <Col>
+        <ApartmentInfoCard/>
+      </Col>
+      <Col>
+        <RenterInfoCard/>
+      </Col>
+    </Row>
+    </Container>
   );
 }
 
-export default RentailPropertyInfoScreen;
+RentalPropertyInfoScreen.propTypes = {
+	Address: PropTypes.string,
+}
+
+RentalPropertyInfoScreen.defaultProps = {
+  Address: '',
+}
+
+export default RentalPropertyInfoScreen;
