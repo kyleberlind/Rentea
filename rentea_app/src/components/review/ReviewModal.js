@@ -8,7 +8,21 @@ import {
   Form,
   Button,
   Modal,
+  Badge,
 } from "react-bootstrap";
+import {
+  SUBMIT_A_REVIEW,
+  PROPERTY_TYPE,
+  ADDRESS_PRIMARY,
+  ADDRESS_SECONDARY,
+  CITY,
+  STATE,
+  ZIP,
+  NAME,
+  EMAIL,
+  SUBMIT_REVIEW,
+  LANDLORD,
+} from "./ReviewConstants";
 
 const ReviewModal = (props) => {
   const onSubmitForm = () => {
@@ -19,13 +33,13 @@ const ReviewModal = (props) => {
     <Container fluid>
       <Modal.Dialog>
         <Modal.Header closeButton onHide={props.onClose}>
-          <Modal.Title>Submit Review</Modal.Title>
+          <Modal.Title>{SUBMIT_A_REVIEW}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Row>
               <Form.Group as={Col} controlId="propertType">
-                <Form.Label>Property Type</Form.Label>
+                <Form.Label>{PROPERTY_TYPE}</Form.Label>
                 <Form.Control as="select" defaultValue="Choose...">
                   <option>Choose...</option>
                   <option>Apartment</option>
@@ -36,23 +50,23 @@ const ReviewModal = (props) => {
             </Form.Row>
 
             <Form.Group controlId="formGridAddress1">
-              <Form.Label>Address</Form.Label>
+              <Form.Label>{ADDRESS_PRIMARY}</Form.Label>
               <Form.Control placeholder="1234 Main St" />
             </Form.Group>
 
             <Form.Group controlId="formGridAddress2">
-              <Form.Label>Address 2</Form.Label>
+              <Form.Label>{ADDRESS_SECONDARY}</Form.Label>
               <Form.Control placeholder="Apartment, studio, or floor" />
             </Form.Group>
 
             <Form.Row>
               <Form.Group as={Col} controlId="formGridCity">
-                <Form.Label>City</Form.Label>
+                <Form.Label>{CITY}</Form.Label>
                 <Form.Control />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>State</Form.Label>
+                <Form.Label>{STATE}</Form.Label>
                 <Form.Control as="select" defaultValue="Choose...">
                   <option>Choose...</option>
                   <option>...</option>
@@ -60,7 +74,7 @@ const ReviewModal = (props) => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>Zip</Form.Label>
+                <Form.Label>{ZIP}</Form.Label>
                 <Form.Control />
               </Form.Group>
             </Form.Row>
@@ -68,20 +82,24 @@ const ReviewModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Form>
+            <Badge variant="secondary">{LANDLORD}</Badge>
             <Form.Row>
               <Form.Group as={Col} controlId="landloarName">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>{NAME}</Form.Label>
                 <Form.Control />
               </Form.Group>
               <Form.Group as={Col} controlId="landloarName">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>{EMAIL}</Form.Label>
                 <Form.Control />
               </Form.Group>
             </Form.Row>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Review</Form.Label>
+              <Form.Control as="textarea" rows="3" />
+            </Form.Group>
             <Button variant="primary" type="submit" onClick={onSubmitForm}>
-              Submit
+              {SUBMIT_REVIEW}
             </Button>
-
           </Form>
         </Modal.Footer>
       </Modal.Dialog>

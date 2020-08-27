@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import RentalPropertyInfoScreen from "./RentalPropertyInfoScreen";
 import AddressSearchTextInput from "../googleMaps/AddressSearchTextInput";
-import ReviewModal from "./ReviewModal";
+import ReviewModal from "./review/ReviewModal";
 
 const MainScreen = (props) => {
   const [displayReviewModal, setDisplayReviewModal] = useState(
@@ -21,8 +21,8 @@ const MainScreen = (props) => {
   );
 
   const onClose = () => {
-    setDisplayReviewModal(false)
-  }
+    setDisplayReviewModal(false);
+  };
 
   return (
     <Container fluid>
@@ -50,7 +50,11 @@ const MainScreen = (props) => {
         </Container>
         <AddressSearchTextInput />
       </Navbar>
-      {displayReviewModal ? <ReviewModal onClose={onClose} /> : <RentalPropertyInfoScreen />}
+      {displayReviewModal ? (
+        <ReviewModal onClose={onClose} />
+      ) : (
+        <RentalPropertyInfoScreen />
+      )}
     </Container>
   );
 };
