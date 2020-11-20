@@ -1,8 +1,9 @@
 import React from "react";
-import { API_KEY } from "./GoogleMapsConstants";
 import { Map, GoogleApiWrapper } from "google-maps-react";
 import { Container } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { API_KEY } from "../renteaSecrets/GoogleMapsAPISecrets";
+
 
 const mapStyles = {
   width: "100%",

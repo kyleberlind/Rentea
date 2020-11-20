@@ -1,3 +1,3 @@
-class Base_Model:
-    def __init__(self, dao):
-        self.dao = dao
+class BaseModel:
+    def __init__(self):
+        None

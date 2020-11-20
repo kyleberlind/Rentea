@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { API_KEY } from "./GoogleMapsConstants";
+import PropTypes from "prop-types";
+import { API_KEY } from "../renteaSecrets/GoogleMapsAPISecrets.js";
+import { getLandlordFromAddress } from "../services";
 
 let autoComplete;
 
@@ -22,34 +24,42 @@ const loadScript = (url, callback) => {
   document.getElementsByTagName("head")[0].appendChild(script);
 };
 
-function handleScriptLoad(updateQuery, autoCompleteRef) {
+function handleScriptLoad(updateQuery, upadateAddress, autoCompleteRef) {
   autoComplete = new window.google.maps.places.Autocomplete(
-    autoCompleteRef.current,
-    { types: ["(cities)"], componentRestrictions: { country: "us" } }
+    autoCompleteRef.current
   );
   autoComplete.setFields(["address_components", "formatted_address"]);
   autoComplete.addListener("place_changed", () =>
-    handlePlaceSelect(updateQuery)
+    handlePlaceSelect(updateQuery, upadateAddress)
   );
 }
 
-async function handlePlaceSelect(updateQuery) {
+async function handlePlaceSelect(updateQuery, upadateAddress) {
   const addressObject = autoComplete.getPlace();
   const query = addressObject.formatted_address;
+  upadateAddress(addressObject);
   updateQuery(query);
-  console.log(addressObject);
 }
 
-function AddressSearchTextInput() {
+function GoogleMapsAddressSearchTextInput(props) {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
+
+  const handleFromSubmit = () => {
+    getLandlordFromAddress(props.address).then((response) =>
+      response.json().then((data) => {
+        props.setLandlordData(data["landlord_data"][0]);
+      })
+    );
+  };
 
   useEffect(() => {
     loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`,
-      () => handleScriptLoad(setQuery, autoCompleteRef)
+      () => handleScriptLoad(setQuery, props.setAddress, autoCompleteRef)
     );
   }, []);
+
 
   return (
     <div className="search-location-input">
@@ -63,4 +73,13 @@ function AddressSearchTextInput() {
   );
 }
 
-export default AddressSearchTextInput;
+GoogleMapsAddressSearchTextInput.propTypes = {
+  address: PropTypes.object.isRequired,
+  displayReviewModal: PropTypes.bool,
+};
+
+GoogleMapsAddressSearchTextInput.defaultProps = {
+  displayReviewModal: false,
+};
+
+export default GoogleMapsAddressSearchTextInput;

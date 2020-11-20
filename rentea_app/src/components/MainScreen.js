@@ -12,49 +12,27 @@ import {
   Row,
 } from "react-bootstrap";
 import RentalPropertyInfoScreen from "./RentalPropertyInfoScreen";
-import AddressSearchTextInput from "../googleMaps/AddressSearchTextInput";
+import AddressSearchTextInput from "./AddressSearchTextInput";
 import ReviewModal from "./review/ReviewModal";
+import NavigationBar from "./navigation/NavigationBar"
+import { SUBMIT_A_REVIEW } from "./review/ReviewConstants";
 
 const MainScreen = (props) => {
-  const [displayReviewModal, setDisplayReviewModal] = useState(
-    props.displayReviewModal
-  );
+  const [address, setAddress] = useState({})
+  const [landlord, setLandlord] = useState({})
 
-  const onClose = () => {
-    setDisplayReviewModal(false);
-  };
 
   return (
     <Container fluid>
-      <Navbar bg="dark" variant="dark">
-        <Container fluid>
-          <Row noGutters>
-            <Nav className="mr-auto">
-              <Col md="auto">
-                <Navbar.Brand href="#home">Rentea</Navbar.Brand>
-              </Col>
-              <Col md="auto">
-                <Nav.Link href="#account">Account</Nav.Link>
-              </Col>
-              <Col lg="auto">
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => setDisplayReviewModal(true)}
-                >
-                  Submit a Review
-                </Button>
-              </Col>
-            </Nav>
-          </Row>
-        </Container>
-        <AddressSearchTextInput />
-      </Navbar>
-      {displayReviewModal ? (
-        <ReviewModal onClose={onClose} />
-      ) : (
-        <RentalPropertyInfoScreen />
-      )}
+      <NavigationBar
+        address={address}
+        setAddress={setAddress}
+      />
+      <RentalPropertyInfoScreen
+        address={address}
+        landlord={landlord}
+        setLandlord={setLandlord}
+      />
     </Container>
   );
 };
