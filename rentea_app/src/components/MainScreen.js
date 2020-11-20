@@ -14,20 +14,16 @@ import {
 import RentalPropertyInfoScreen from "./RentalPropertyInfoScreen";
 import AddressSearchTextInput from "./AddressSearchTextInput";
 import ReviewModal from "./review/ReviewModal";
-import NavigationBar from "./navigation/NavigationBar"
+import NavigationBar from "./navigation/NavigationBar";
 import { SUBMIT_A_REVIEW } from "./review/ReviewConstants";
 
 const MainScreen = (props) => {
-  const [address, setAddress] = useState({})
-  const [landlord, setLandlord] = useState({})
-
+  const [address, setAddress] = useState({});
+  const [landlord, setLandlord] = useState({});
 
   return (
     <Container fluid>
-      <NavigationBar
-        address={address}
-        setAddress={setAddress}
-      />
+      <NavigationBar address={address} setAddress={setAddress} />
       <RentalPropertyInfoScreen
         address={address}
         landlord={landlord}
