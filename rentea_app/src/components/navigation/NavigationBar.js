@@ -4,14 +4,25 @@ import { Navbar, Nav, Container, Button, Col } from "react-bootstrap";
 import { SUBMIT_A_REVIEW } from "../review/ReviewConstants";
 import ReviewModal from "../review/ReviewModal";
 import GoogleMapsAddressSearchTextInput from "../../googleMaps/GoogleMapsAddressSearchTextInput";
+import { getLandlordByAddress } from "../../services";
 
 const NavigationBar = (props) => {
-  const [displayReviewModal, setDisplayReviewModal] = useState(
-    props.displayReviewModal
-  );
 
-  const onClose = () => {
-    setDisplayReviewModal(false);
+  const handleSearchAddress = () => {
+    getLandlordByAddress(props.address.formatted_address).then((response) => {
+      response
+        .json()
+        .then((data) => {
+          if (data["landlordData"] != null) {
+            props.setLandlord(data["landlordData"][0]);
+          } else {
+            console.log('No Address Found')
+          }
+        })
+        .catch((error) => {
+          console.log('error')
+        });
+    });
   };
 
   return (
@@ -28,18 +39,18 @@ const NavigationBar = (props) => {
             <Button
               variant="primary"
               size="sm"
-              onClick={() => setDisplayReviewModal(true)}
+              onClick={() => props.setDisplayReviewModal(true)}
             >
               {SUBMIT_A_REVIEW}
             </Button>
           </Col>
         </Nav>
+        <Button onClick={handleSearchAddress}>Submit</Button>
         <GoogleMapsAddressSearchTextInput
-          address={props.address} 
+          address={props.address}
           setAddress={props.setAddress}
         />
       </Navbar>
-      {displayReviewModal && <ReviewModal onClose={onClose} />}
     </Container>
   );
 };

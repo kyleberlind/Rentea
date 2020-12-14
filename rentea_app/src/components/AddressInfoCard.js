@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
 const AddressInfoCard = (props) => {

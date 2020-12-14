@@ -1,20 +1,13 @@
-from ..models.review_model import ReviewModel
+from typing import Optional
+from pydantic import BaseModel
+from ..daos.landlord_dao import LandlordDao
 
 
-class LandlordModel:
-    def __init__(self, landlord_data):
-        self.first_name = landlord_data["first_name"]
-        self.last_name = landlord_data["last_name"]
-        self.age = landlord_data["age"]
-        self.rating = landlord_data["rating"]
-        self.review = landlord_data["review"]
+class LandlordModel(BaseModel):
 
-    def serialize(self):
-        return{
-            "first_name": self.first_name,
-            "last_name": self.last_name,
-            "age": self.age,
-            "rating": self.rating,
-            "review": self.review
-        }
-
+    def add_landlord_review_by_address(self, review_data):
+        dao = LandlordDao()
+        try:
+            return dao.add_landlord_review_by_address(review_data)
+        except Exception as error:
+            return False

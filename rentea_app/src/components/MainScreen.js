@@ -21,14 +21,35 @@ const MainScreen = (props) => {
   const [address, setAddress] = useState({});
   const [landlord, setLandlord] = useState({});
 
+  const onClose = () => {
+    setDisplayReviewModal(false);
+  };
+  const [displayReviewModal, setDisplayReviewModal] = useState(
+    props.displayReviewModal
+  );
+
   return (
     <Container fluid>
-      <NavigationBar address={address} setAddress={setAddress} />
-      <RentalPropertyInfoScreen
+      <NavigationBar
         address={address}
-        landlord={landlord}
+        setAddress={setAddress}
         setLandlord={setLandlord}
+        setDisplayReviewModal={setDisplayReviewModal}
       />
+      {!displayReviewModal && (
+        <RentalPropertyInfoScreen
+          address={address}
+          landlord={landlord}
+          setLandlord={setLandlord}
+        />
+      )}
+      {displayReviewModal && (
+        <ReviewModal
+          onClose={onClose}
+          address={address}
+          setAddress={setAddress}
+        />
+      )}
     </Container>
   );
 };

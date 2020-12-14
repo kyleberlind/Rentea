@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import MapContainer from "../googleMaps/MapContainer";
-import RenterInfoCard from "./RenterInfoCard";
+import LandlordInfoCard from "./LandlordInfoCard";
 import AddressInfoCard from "./AddressInfoCard";
 
 const RentalPropertyInfoScreen = (props) => {
@@ -15,7 +15,9 @@ const RentalPropertyInfoScreen = (props) => {
           />
         </Col>
         <Col>
-          <RenterInfoCard />
+          <LandlordInfoCard
+            landlord={props.landlord}
+          />
         </Col>
       </Row>
     </Container>
@@ -23,11 +25,12 @@ const RentalPropertyInfoScreen = (props) => {
 };
 
 RentalPropertyInfoScreen.propTypes = {
-  Address: PropTypes.string,
+  address: PropTypes.object,
+  landlord: PropTypes.object
 };
 
 RentalPropertyInfoScreen.defaultProps = {
-  Address: "",
+  address: {},
 };
 
 export default RentalPropertyInfoScreen;

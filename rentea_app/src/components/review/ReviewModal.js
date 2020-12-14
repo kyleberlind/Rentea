@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import GoogleMapsAddressSearchTextInput from "../../googleMaps/GoogleMapsAddressSearchTextInput";
+import { addLandlordReviewByAddress } from "../../services";
 import {
   Card,
   Container,
@@ -25,8 +27,29 @@ import {
 } from "./ReviewConstants";
 
 const ReviewModal = (props) => {
-  const onSubmitForm = () => {
+  const [landlordData, setLandLordData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    review: "",
+  });
+
+  const handleSubmitReview = () => {
+    addLandlordReviewByAddress(props.address?.formatted_address, landlordData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     props.onClose();
+  };
+
+  const handleChange = (e) => {
+    setLandLordData({
+      ...landlordData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -38,70 +61,62 @@ const ReviewModal = (props) => {
         <Modal.Body>
           <Form>
             <Form.Row>
-              <Form.Group as={Col} controlId="propertType">
-                <Form.Label>{PROPERTY_TYPE}</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
-                  <option>Choose...</option>
-                  <option>Apartment</option>
-                  <option>House</option>
-                  <option>Condo</option>
-                </Form.Control>
-              </Form.Group>
-            </Form.Row>
-
-            <Form.Group controlId="formGridAddress1">
-              <Form.Label>{ADDRESS_PRIMARY}</Form.Label>
-              <Form.Control placeholder="1234 Main St" />
-            </Form.Group>
-
-            <Form.Group controlId="formGridAddress2">
-              <Form.Label>{ADDRESS_SECONDARY}</Form.Label>
-              <Form.Control placeholder="Apartment, studio, or floor" />
-            </Form.Group>
-
-            <Form.Row>
-              <Form.Group as={Col} controlId="formGridCity">
-                <Form.Label>{CITY}</Form.Label>
-                <Form.Control />
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>{STATE}</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
-                  <option>Choose...</option>
-                  <option>...</option>
-                </Form.Control>
-              </Form.Group>
-
-              <Form.Group as={Col} controlId="formGridZip">
-                <Form.Label>{ZIP}</Form.Label>
-                <Form.Control />
+              <Form.Group as={Col} controlId="address">
+                <Form.Label>Address</Form.Label>
+                <GoogleMapsAddressSearchTextInput
+                  address={props.address}
+                  setAddress={props.setAddress}
+                />
               </Form.Group>
             </Form.Row>
           </Form>
-        </Modal.Body>
-        <Modal.Footer>
           <Form>
-            <Badge variant="secondary">{LANDLORD}</Badge>
+            <Badge variant="primary">{LANDLORD}</Badge>
             <Form.Row>
               <Form.Group as={Col} controlId="landloarName">
-                <Form.Label>{NAME}</Form.Label>
-                <Form.Control />
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  onChange={handleChange}
+                  value={landlordData.firstName}
+                  name="firstName"
+                />
               </Form.Group>
-              <Form.Group as={Col} controlId="landloarName">
+              <Form.Group as={Col} controlId="lastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  onChange={handleChange}
+                  value={landlordData.lastName}
+                  name="lastName"
+                />
+              </Form.Group>
+              <Form.Group as={Col} controlId="email">
                 <Form.Label>{EMAIL}</Form.Label>
-                <Form.Control />
+                <Form.Control
+                  onChange={handleChange}
+                  value={landlordData.email}
+                  name="email"
+                />
               </Form.Group>
             </Form.Row>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Review</Form.Label>
-              <Form.Control as="textarea" rows="3" />
+              <Form.Control
+                as="textarea"
+                rows="3"
+                onChange={handleChange}
+                value={landlordData.review}
+                name="review"
+              />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={onSubmitForm}>
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={handleSubmitReview}
+            >
               {SUBMIT_REVIEW}
             </Button>
           </Form>
-        </Modal.Footer>
+        </Modal.Body>
       </Modal.Dialog>
     </Container>
   );
