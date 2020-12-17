@@ -6,8 +6,8 @@ import { API_KEY } from "../renteaSecrets/GoogleMapsAPISecrets";
 
 
 const mapStyles = {
-  width: "100%",
-  height: "100%",
+  width: "400px",
+  height: "400px",
 };
 
 const MapContainer = (props) => {

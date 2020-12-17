@@ -16,7 +16,7 @@ const RentalPropertyInfoScreen = (props) => {
         </Col>
         <Col>
           <LandlordInfoCard
-            landlord={props.landlord}
+            landlords={props.landlords}
           />
         </Col>
       </Row>
@@ -26,7 +26,7 @@ const RentalPropertyInfoScreen = (props) => {
 
 RentalPropertyInfoScreen.propTypes = {
   address: PropTypes.object,
-  landlord: PropTypes.object
+  landlords: PropTypes.array
 };
 
 RentalPropertyInfoScreen.defaultProps = {

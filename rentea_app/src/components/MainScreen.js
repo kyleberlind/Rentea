@@ -19,7 +19,7 @@ import { SUBMIT_A_REVIEW } from "./review/ReviewConstants";
 
 const MainScreen = (props) => {
   const [address, setAddress] = useState({});
-  const [landlord, setLandlord] = useState({});
+  const [landlords, setLandlords] = useState([]);
 
   const onClose = () => {
     setDisplayReviewModal(false);
@@ -33,14 +33,14 @@ const MainScreen = (props) => {
       <NavigationBar
         address={address}
         setAddress={setAddress}
-        setLandlord={setLandlord}
+        setLandlords={setLandlords}
         setDisplayReviewModal={setDisplayReviewModal}
       />
       {!displayReviewModal && (
         <RentalPropertyInfoScreen
           address={address}
-          landlord={landlord}
-          setLandlord={setLandlord}
+          landlords={landlords}
+          setLandlords={setLandlords}
         />
       )}
       {displayReviewModal && (

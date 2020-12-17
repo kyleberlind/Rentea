@@ -34,15 +34,24 @@ const ReviewModal = (props) => {
     review: "",
   });
 
-  const handleSubmitReview = () => {
-    addLandlordReviewByAddress(props.address?.formatted_address, landlordData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    props.onClose();
+  const [validated, setValidated] = useState(false);
+
+  const handleSubmitReview = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(false);
+    console.log("submit")
+    // addLandlordReviewByAddress(props.address?.formatted_address, landlordData)
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // props.onClose();
   };
 
   const handleChange = (e) => {
@@ -59,7 +68,7 @@ const ReviewModal = (props) => {
           <Modal.Title>{SUBMIT_A_REVIEW}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form validated={validated} onSubmit={e => {handleSubmitReview(e)}}>
             <Form.Row>
               <Form.Group as={Col} controlId="address">
                 <Form.Label>Address</Form.Label>
@@ -73,46 +82,49 @@ const ReviewModal = (props) => {
           <Form>
             <Badge variant="primary">{LANDLORD}</Badge>
             <Form.Row>
-              <Form.Group as={Col} controlId="landloarName">
+              <Form.Group as={Col} controlId="firstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
+                  required
                   onChange={handleChange}
                   value={landlordData.firstName}
                   name="firstName"
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} controlId="lastName">
+              <Form.Group as={Col} controlId="validationCustom01">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
+                  required
                   onChange={handleChange}
                   value={landlordData.lastName}
                   name="lastName"
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
-              <Form.Group as={Col} controlId="email">
+              <Form.Group as={Col} controlId="validationCustom02">
                 <Form.Label>{EMAIL}</Form.Label>
                 <Form.Control
+                  required
                   onChange={handleChange}
                   value={landlordData.email}
                   name="email"
                 />
               </Form.Group>
             </Form.Row>
-            <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Group controlId="validationCustom03">
               <Form.Label>Review</Form.Label>
               <Form.Control
+                required
                 as="textarea"
                 rows="3"
                 onChange={handleChange}
                 value={landlordData.review}
                 name="review"
               />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={handleSubmitReview}
-            >
+            <Button variant="primary" type="submit">
               {SUBMIT_REVIEW}
             </Button>
           </Form>

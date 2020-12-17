@@ -7,20 +7,19 @@ import GoogleMapsAddressSearchTextInput from "../../googleMaps/GoogleMapsAddress
 import { getLandlordByAddress } from "../../services";
 
 const NavigationBar = (props) => {
-
   const handleSearchAddress = () => {
     getLandlordByAddress(props.address.formatted_address).then((response) => {
       response
         .json()
         .then((data) => {
           if (data["landlordData"] != null) {
-            props.setLandlord(data["landlordData"][0]);
+            props.setLandlords(data["landlordData"]);
           } else {
-            console.log('No Address Found')
+            console.log("No Address Found");
           }
         })
         .catch((error) => {
-          console.log('error')
+          console.log(error);
         });
     });
   };
@@ -32,9 +31,6 @@ const NavigationBar = (props) => {
           <Col md="auto">
             <Navbar.Brand href="#home">Rentea</Navbar.Brand>
           </Col>
-          <Col md="auto">
-            <Nav.Link href="#account">Account</Nav.Link>
-          </Col>
           <Col lg="auto">
             <Button
               variant="primary"
@@ -45,7 +41,7 @@ const NavigationBar = (props) => {
             </Button>
           </Col>
         </Nav>
-        <Button onClick={handleSearchAddress}>Submit</Button>
+        <Button onClick={handleSearchAddress}>Search Address</Button>
         <GoogleMapsAddressSearchTextInput
           address={props.address}
           setAddress={props.setAddress}
